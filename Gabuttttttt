@@ -122,15 +122,15 @@ index.html<!DOCTYPE html>
     <div class="section">
         <h3>🔊 Soundboard Meme (9 Tombol Berurutan)</h3>
         <div class="sound-grid">
-            <button class="btn btn-sound" onclick="putarMeme(1)">🔊 Sound Meme 1</button>
-            <button class="btn btn-sound" onclick="putarMeme(2)">🔊 Sound Meme 2</button>
-            <button class="btn btn-sound" onclick="putarMeme(3)">🔊 Sound Meme 3</button>
-            <button class="btn btn-sound" onclick="putarMeme(4)">🔊 Sound Meme 4</button>
-            <button class="btn btn-sound" onclick="putarMeme(5)">🔊 Sound Meme 5</button>
-            <button class="btn btn-sound" onclick="putarMeme(6)">🔊 Sound Meme 6</button>
-            <button class="btn btn-sound" onclick="putarMeme(7)">🔊 Sound Meme 7</button>
-            <button class="btn btn-sound" onclick="putarMeme(8)">🔊 Sound Meme 8</button>
-            <button class="btn btn-sound" onclick="putarMeme(9)">🔊 Sound Meme 9</button>
+            <button class="btn btn-sound" onclick="putarMeme(1)">🔊 sound Meme 1</button>
+            <button class="btn btn-sound" onclick="putarMeme(2)">🔊 sound Meme 2</button>
+            <button class="btn btn-sound" onclick="putarMeme(3)">🔊 sound Meme 3</button>
+            <button class="btn btn-sound" onclick="putarMeme(4)">🔊 sound Meme 4</button>
+            <button class="btn btn-sound" onclick="putarMeme(5)">🔊 sound Meme 5</button>
+            <button class="btn btn-sound" onclick="putarMeme(6)">🔊 sound Meme 6</button>
+            <button class="btn btn-sound" onclick="putarMeme(7)">🔊 sound Meme 7</button>
+            <button class="btn btn-sound" onclick="putarMeme(8)">🔊 sound Meme 8</button>
+            <button class="btn btn-sound" onclick="putarMeme(9)">🔊 sound Meme 9</button>
         </div>
     </div>
 </div>
