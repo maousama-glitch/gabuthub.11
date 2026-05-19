@@ -1,0 +1,243 @@
+index.html<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabut Hub V4.1 - Berurutan Edition</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #12121c, #08080f);
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 95vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+        h1 {
+            color: #ff007f;
+            margin-bottom: 5px;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+        .desc { font-size: 12px; color: #aaa; margin-bottom: 20px; }
+        .section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff007f;
+            text-align: left;
+        }
+        .section h3 { margin-top: 0; margin-bottom: 10px; font-size: 15px; color: #00ffcc; text-transform: uppercase; }
+        .meme-text { font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 10px; background: #222; padding: 10px; border-radius: 6px; }
+        
+        .input-box {
+            width: 90%; padding: 10px; border-radius: 6px; border: 1px solid #555; background: #111; color: white; font-size: 14px; margin-bottom: 10px;
+        }
+        .btn {
+            background: linear-gradient(90deg, #ff007f, #7f00ff);
+            color: white; border: none; padding: 10px 15px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; width: 100%; transition: all 0.2s ease;
+        }
+        .btn:hover { transform: scale(1.02); }
+        .btn-clicker { background: linear-gradient(90deg, #00ffcc, #0099ff); color: #111; font-size: 15px; }
+        
+        .score-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .score-text { font-size: 28px; font-weight: bold; color: #ffd700; }
+        
+        .leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 13px; }
+        .leaderboard-table th, .leaderboard-table td { padding: 8px; text-align: left; border-bottom: 1px solid #333; }
+        .leaderboard-table th { color: #00ffcc; }
+        .rank-highlight { color: #ff007f; font-weight: bold; }
+
+        /* Grid nampung 9 tombol soundboard berurutan */
+        .sound-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .btn-sound { background: #252530; font-size: 11px; border: 1px solid #444; color: #fff; padding: 12px 5px; cursor: pointer; border-radius: 6px;}
+        .btn-sound:active { background: #ff007f; }
+    </style>
+</head>
+<body>
+
+<audio id="audio-1" src="sound1.mp3"></audio>
+<audio id="audio-2" src="sound2.mp3"></audio>
+<audio id="audio-3" src="sound3.mp3"></audio>
+<audio id="audio-4" src="sound4.mp3"></audio>
+<audio id="audio-5" src="sound5.mp3"></audio>
+<audio id="audio-6" src="sound6.mp3"></audio>
+<audio id="audio-7" src="sound7.mp3"></audio>
+<audio id="audio-8" src="sound8.mp3"></audio>
+<audio id="audio-9" src="sound9.mp3"></audio>
+
+<div class="container">
+    <h1>GABUT HUB V4.1</h1>
+    <div class="desc">9 Sound Berurutan Siap Online! 🔥</div>
+
+    <div class="section">
+        <h3>🤡 Kuis Tebak Meme Lawak</h3>
+        <div class="meme-text" id="meme-display">Memuat soal...</div>
+        <input type="text" id="jawaban-input" class="input-box" placeholder="Ketik jawaban lu...">
+        <button class="btn" onclick="cekJawaban()" style="margin-bottom: 5px;">Cek Jawaban</button>
+        <button class="btn" style="background: #444;" onclick="getSoalMeme()">Ganti Soal</button>
+        <div id="quiz-feedback" style="margin-top: 8px; font-size: 12px; font-weight: bold; text-align: center;"></div>
+    </div>
+
+    <div class="section">
+        <h3>🏆 Bapak Kliker (Top Global #1 Challenge)</h3>
+        <div class="score-box">
+            <div>
+                <span style="font-size: 12px; color: #aaa;">Skor Permanen Lu:</span>
+                <div class="score-text" id="score-display">0</div>
+            </div>
+            <button class="btn btn-clicker" onclick="tambahSkor()" style="width: auto; padding: 15px 25px;">KLIK!</button>
+        </div>
+        
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Nama Player</th>
+                    <th>Total Klik</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
+        <button onclick="resetSkor()" style="background:none; border:none; color:#555; font-size:10px; margin-top:10px; width:100%; text-align:right; cursor:pointer;">Reset Skor Saya</button>
+    </div>
+
+    <div class="section">
+        <h3>🔊 Soundboard Meme (9 Tombol Berurutan)</h3>
+        <div class="sound-grid">
+            <button class="btn btn-sound" onclick="putarMeme(1)">🔊 Sound Meme 1</button>
+            <button class="btn btn-sound" onclick="putarMeme(2)">🔊 Sound Meme 2</button>
+            <button class="btn btn-sound" onclick="putarMeme(3)">🔊 Sound Meme 3</button>
+            <button class="btn btn-sound" onclick="putarMeme(4)">🔊 Sound Meme 4</button>
+            <button class="btn btn-sound" onclick="putarMeme(5)">🔊 Sound Meme 5</button>
+            <button class="btn btn-sound" onclick="putarMeme(6)">🔊 Sound Meme 6</button>
+            <button class="btn btn-sound" onclick="putarMeme(7)">🔊 Sound Meme 7</button>
+            <button class="btn btn-sound" onclick="putarMeme(8)">🔊 Sound Meme 8</button>
+            <button class="btn btn-sound" onclick="putarMeme(9)">🔊 Sound Meme 9</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const bankMeme = [
+        { soal: "Meme kucing oren yang mukanya melas pasrah pas dipegang namanya kucing apa?", jawaban: "elgato" },
+        { soal: "Karakter botak game CoC yang suka naik babi sambil teriak hogg rider bernama...?", jawaban: "hog rider" },
+        { soal: "Sebutkan hewan pahlawan kapibara yang sound-nya santai santai di pinggir jalan...?", jawaban: "masbro" },
+        { soal: "Meme singkatan dari kata 'Pria Punya Selera' versi cowok kocak adalah...?", jawaban: "pps" },
+        { soal: "Meme bocah afrika yang joget pake kacamata hitam pas denger lagu jedag jedug namanya...?", jawaban: "mulyono" }
+    ];
+
+    let soalSekarang = null;
+    let skor = 0;
+    let elainaScore = 150; 
+    let baristaScore = 45;
+
+    function loadSavedData() {
+        let savedScore = localStorage.getItem('maou_gabut_score');
+        if (savedScore !== null) {
+            skor = parseInt(savedScore);
+        }
+        updateUI();
+    }
+
+    function getSoalMeme() {
+        const randomIdx = Math.floor(Math.random() * bankMeme.length);
+        soalSekarang = bankMeme[randomIdx];
+        document.getElementById('meme-display').innerText = "Soal: " + soalSekarang.soal;
+        document.getElementById('jawaban-input').value = "";
+        document.getElementById('quiz-feedback').innerText = "";
+    }
+
+    function cekJawaban() {
+        if (!soalSekarang) return;
+        let jawabanUser = document.getElementById('jawaban-input').value.trim().toLowerCase();
+        
+        if (jawabanUser === soalSekarang.jawaban) {
+            document.getElementById('quiz-feedback').innerHTML = "<span style='color: #00ffcc;'>✓ JAWABAN PATEN! +5 Klik</span>";
+            skor += 5;
+            saveSkor();
+            updateUI();
+        } else {
+            document.getElementById('quiz-feedback').innerHTML = "<span style='color: #ff007f;'>❌ JAWABAN SALAH JIR!</span>";
+        }
+    }
+
+    function tambahSkor() {
+        skor++;
+        saveSkor();
+        updateUI();
+    }
+
+    function saveSkor() {
+        localStorage.setItem('maou_gabut_score', skor);
+    }
+
+    function resetSkor() {
+        if(confirm("Yakin mau reset skor lu?")) {
+            skor = 0;
+            saveSkor();
+            updateUI();
+        }
+    }
+
+    function updateUI() {
+        document.getElementById('score-display').innerText = skor;
+        
+        let players = [
+            { name: "Elaina-chan (AI)", score: elainaScore, style: "class='rank-highlight'" },
+            { name: "Maou sama (Lu)", score: skor, style: "style='color: #ffd700; font-weight: bold;'" },
+            { name: "Kawan Barista Peresu", score: baristaScore, style: "" }
+        ];
+
+        players.sort((a, b) => b.score - a.score);
+
+        let tbodyHTML = "";
+        players.forEach((p, index) => {
+            let piala = index === 0 ? " 👑" : (index === 1 ? " 🥈" : " 🗿");
+            tbodyHTML += `<tr><td>${index + 1}${piala}</td><td ${p.style}>${p.name}</td><td>${p.score}</td></tr>`;
+        });
+        document.getElementById('leaderboard-body').innerHTML = tbodyHTML;
+    }
+
+    // FUNGSI UTAMA PEMUTAR AUDIO BERDASARKAN NOMOR
+    function putarMeme(nomor) {
+        // Matikan audio lain yang lagi nyala
+        for (let i = 1; i <= 9; i++) {
+            let a = document.getElementById('audio-' + i);
+            if (a && i !== nomor) { a.pause(); a.currentTime = 0; }
+        }
+
+        let audioPlayer = document.getElementById('audio-' + nomor);
+        if (audioPlayer) {
+            audioPlayer.currentTime = 0; 
+            audioPlayer.play().catch(e => {
+                alert("File sound" + nomor + ".mp3 belum diupload ke GitHub, Maou sama! ❌");
+            });
+        }
+    }
+
+    window.onload = function() {
+        loadSavedData();
+        getSoalMeme();
+    };
+</script>
+
+</body>
+</html>
